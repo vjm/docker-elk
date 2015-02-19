@@ -18,6 +18,9 @@ RUN \
     apt-get clean && \
     sed -i '/#cluster.name:.*/a cluster.name: logstash' /etc/elasticsearch/elasticsearch.yml && \
     sed -i '/#path.data: \/path\/to\/data/a path.data: /data' /etc/elasticsearch/elasticsearch.yml
+     # && \
+    # /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest
+    # echo 'marvel.agent.enabled: false' >> ./config/elasticsearch.yml
 
 ADD etc/supervisor/conf.d/elasticsearch.conf /etc/supervisor/conf.d/elasticsearch.conf
 
@@ -37,6 +40,6 @@ RUN \
 
 ADD etc/supervisor/conf.d/kibana.conf /etc/supervisor/conf.d/kibana.conf
 
-EXPOSE 80 5601 443 9998 9999 9988 9989
+EXPOSE 80 5601 443 9200 9998 9999 9988 9989
 
 CMD [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
