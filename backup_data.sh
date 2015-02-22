@@ -1,0 +1,1 @@
+docker run --volumes-from dockerelk_dataelk_1 -v $(pwd):/backup busybox tar cvf /backup/elkdata-backup-$(date +"%Y%m%d%H%M").tar /data

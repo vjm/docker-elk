@@ -33,13 +33,13 @@ ADD etc/supervisor/conf.d/logstash.conf /etc/supervisor/conf.d/logstash.conf
 
 # Kibana
 RUN \
-    curl -s https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz | tar -C /opt -xz && \
-    ln -s /opt/kibana-4.0.0-beta3 /opt/kibana 
+    curl -s https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-linux-x64.tar.gz | tar -C /opt -xz && \
+    ln -s /opt/kibana-4.0.0-linux-x64 /opt/kibana 
     # && \
     # sed -i 's/port: 5601/port: 80/' /opt/kibana/config/kibana.yml
 
 ADD etc/supervisor/conf.d/kibana.conf /etc/supervisor/conf.d/kibana.conf
 
-EXPOSE 80 5601 443 9200 9998 9999 9988 9989
+EXPOSE 80 5601 443 9200 9292 9998 9999 9988 9989 5000
 
 CMD [ "/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf" ]
