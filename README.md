@@ -1,3 +1,8 @@
+https://www.mjt.me.uk/posts/kibana-101/
+
+
+
+
 Elasticsearch. Logstash. Kibana.
 ================================
 
