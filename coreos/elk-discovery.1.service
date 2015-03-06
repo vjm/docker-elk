@@ -1,0 +1,10 @@
+[Unit]
+Description=Announce elk_1
+BindsTo=elk.1.service
+
+[Service]
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/elk/elk_1 '{ \"host\": \"%H\", \"port\": 5000, \"version\": \"52c7248a14\" }' --ttl 60;sleep 45;done"
+ExecStop=/usr/bin/etcdctl rm /services/elk/elk_1
+
+[X-Fleet]
+X-ConditionMachineOf=elk.1.service
