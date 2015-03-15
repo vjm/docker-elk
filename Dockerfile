@@ -17,10 +17,11 @@ RUN \
     apt-get install -y elasticsearch && \
     apt-get clean && \
     sed -i '/#cluster.name:.*/a cluster.name: logstash' /etc/elasticsearch/elasticsearch.yml && \
-    sed -i '/#path.data: \/path\/to\/data/a path.data: /data' /etc/elasticsearch/elasticsearch.yml
-     # && \
-    # /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest
-    # echo 'marvel.agent.enabled: false' >> ./config/elasticsearch.yml
+    sed -i '/#path.data: \/path\/to\/data/a path.data: /data1' /etc/elasticsearch/elasticsearch.yml && \
+    /usr/share/elasticsearch/bin/plugin -i lmenezes/elasticsearch-kopf/latest
+    # && \
+    # /usr/share/elasticsearch/bin/plugin -i elasticsearch/marvel/latest && \
+    # echo 'marvel.agent.enabled: true' >> ./config/elasticsearch.yml
 
 ADD etc/supervisor/conf.d/elasticsearch.conf /etc/supervisor/conf.d/elasticsearch.conf
 
@@ -31,6 +32,8 @@ RUN apt-get install -y logstash && \
 
 ADD etc/supervisor/conf.d/logstash.conf /etc/supervisor/conf.d/logstash.conf
 
+ADD etc/logstash/conf.d /etc/logstash/conf.d
+
 # Kibana
 RUN \
     curl -s https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-linux-x64.tar.gz | tar -C /opt -xz && \
@@ -39,6 +42,8 @@ RUN \
     # sed -i 's/port: 5601/port: 80/' /opt/kibana/config/kibana.yml
 
 ADD etc/supervisor/conf.d/kibana.conf /etc/supervisor/conf.d/kibana.conf
+
+VOLUME '/data1'
 
 EXPOSE 80 5601 443 9200 9292 9998 9999 9988 9989 5000
 
